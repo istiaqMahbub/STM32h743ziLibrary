@@ -21,12 +21,8 @@ float ReadTemperature(tempHandle_t* tempHandler, uint8_t timeout) {
 	HAL_I2C_Master_Receive(&hi2c1, tempHandler->i2cAddress, tempHandler->receiveBuffer, 2, timeout);
 	uint16_t temp = ((tempHandler->receiveBuffer[0] << 8) + (tempHandler->receiveBuffer[1]));
 	return (ReadTemp(temp));
-	/*temp = temp >> 3;
-	float temperature = (temp * 0.0625);
-	return temperature;*/
 }
 float ReadTemp(uint16_t tmp) {
-	//uint16_t temp = ((tempHandler1->receiveBuffer[0] << 8) + (tempHandler1->receiveBuffer[1]));
 	tmp = tmp >> 3;
 	float temperature = (tmp * 0.0625);
 	return temperature;
@@ -53,9 +49,6 @@ float ReadHysteresis(tempHandle_t* tempHandler) {
 	HAL_I2C_Master_Receive(&hi2c1, tempHandler->i2cAddress, tempHandler->receiveBuffer, 2, 100);
 	uint16_t temp = ((tempHandler->receiveBuffer[0] << 8) + (tempHandler->receiveBuffer[1]));
 	return(ReadTemp(temp));
-	/*temp = temp >> 3;
-	float temperature = (temp * 0.0625);
-	return temperature;*/
 }
 float ReadTHigh(tempHandle_t* tempHandler) {
 	tempHandler->configBuffer[0] = T_HIGH_SET_REG_PTR;
@@ -64,9 +57,6 @@ float ReadTHigh(tempHandle_t* tempHandler) {
 	HAL_I2C_Master_Receive(&hi2c1, tempHandler->i2cAddress, tempHandler->receiveBuffer, 2, 100);
 	uint16_t temp = ((tempHandler->receiveBuffer[0] << 8) + (tempHandler->receiveBuffer[1]));
 	return(ReadTemp(temp));
-	/*temp = temp >> 3;
-	float temperature = (temp * 0.0625);
-	return temperature;*/
 }
 float ReadTlow(tempHandle_t* tempHandler) {
 	tempHandler->configBuffer[0] = T_CRIT_SET_REG_PTR;
@@ -75,9 +65,6 @@ float ReadTlow(tempHandle_t* tempHandler) {
 	HAL_I2C_Master_Receive(&hi2c1, tempHandler->i2cAddress, tempHandler->receiveBuffer, 2, 100);
 	uint16_t temp = ((tempHandler->receiveBuffer[0] << 8) + (tempHandler->receiveBuffer[1]));
 	return(ReadTemp(temp));
-	/*temp = temp >> 3;
-	float temperature = (temp * 0.0625);
-	return temperature;*/
 }
 void SetHysteresis(tempHandle_t* tempHandler,double t) {
 	t/= 0.0625;
